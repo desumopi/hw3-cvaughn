@@ -16,10 +16,9 @@ import org.apache.uima.jcas.JCas;
  */
 public class PrecisionAnnotator extends JCasAnnotator_ImplBase {
   
-  private static double THRESHOLD = 0.3;
-  
   public void process(JCas aJCas) {
-    System.out.println("CURRENTLY RUNNING PrecisionAnnotator.java");
+    
+    String docText = aJCas.getDocumentText();
     
     // get the answers from the CAS (and store in ArrayList):
     int N=0;
@@ -65,43 +64,38 @@ public class PrecisionAnnotator extends JCasAnnotator_ImplBase {
     }
     System.out.println();*/
     
-    ArrayList<Integer> posAnsBegins = new ArrayList<Integer>();
-    ArrayList<Integer> negAnsBegins = new ArrayList<Integer>();
+    ArrayList<Integer> highAnsBegins = new ArrayList<Integer>();
+    String label = "!";
+    int tp = 0;
     
-    
-    // for the first N AnswerScores, are they right?
-    for (int x=0; x<N; x++) {
-      //System.out.print(asArray.get(x).getScore()+" + ");
-      if (asArray.get(x).getScore() >= THRESHOLD) {
-        posAnsBegins.add(asArray.get(x).getBegin());
-      } else {
-        negAnsBegins.add(asArray.get(x).getBegin());
-      }
-    }
-    //System.out.println();
-    
-    int tp = 0, fp = 0;
-    
-    for (int i=0; i < posAnsBegins.size(); i++) {
-      for (int j=0; j < ansArray.size(); j++) {
-        if (posAnsBegins.get(i) == ansArray.get(j).getBegin()) {
-          // this is the right answer
-          if (ansArray.get(j).getIsCorrect()) {
-            tp++;
-          } else {
-            fp++;
-          }
+    // for the first N AnswerScores, how many are right?
+    for (int x=0; x<asArray.size(); x++) {
+      // highAnsBegins.add(asArray.get(x).getBegin());
+      if (asArray.get(x).getAnswer().getIsCorrect()) {
+        label = "+";
+        if (x < N) {
+          tp++;
         }
+      } else {
+        label = "-";
       }
+      System.out.println(label + " " + doubleToString(asArray.get(x).getScore()) + " \"" + docText.substring(asArray.get(x).getBegin(), asArray.get(x).getEnd()) + "\"");
     }
     
-    double precision = ((double)tp)/(double)(tp+fp);
+    double precision = ((double)tp)/(double)(N);
     
-    System.out.println("Precision at a threshold of " + THRESHOLD + " is " + precision + " = " + tp + "/" + (tp + fp));
+    System.out.println("Precision at " + N + ": " + doubleToString(precision));
     
   }
   
-  
+  private String doubleToString(double doub) {
+    doub = doub*100;
+    int temp = (int) doub;
+    double better = (double) temp;
+    better = better/100.0;
+    String ret = ""+better+"";
+    return ret;
+  }
   
   
   private void sortArray(ArrayList<AnswerScore> asArray) {

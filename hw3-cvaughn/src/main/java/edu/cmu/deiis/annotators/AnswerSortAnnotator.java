@@ -17,7 +17,6 @@ import org.apache.uima.jcas.JCas;
 public class AnswerSortAnnotator extends JCasAnnotator_ImplBase {
   
   public void process(JCas aJCas) {
-    System.out.println("CURRENTLY RUNNING AnswerSortAnnotator.java");
     
     String docText = aJCas.getDocumentText();
     
@@ -25,6 +24,9 @@ public class AnswerSortAnnotator extends JCasAnnotator_ImplBase {
     FSIndex questIndex = aJCas.getAnnotationIndex(Question.type);
     Iterator questIter = questIndex.iterator();
     Question question = (Question) questIter.next();
+    
+    System.out.println("");
+    System.out.println("Question: \"" + docText.substring(question.getBegin(), question.getEnd()) + "\"");
         
     // get the answers from the CAS (and store in ArrayList):
     ArrayList<Answer> ansArray = new ArrayList<Answer>();

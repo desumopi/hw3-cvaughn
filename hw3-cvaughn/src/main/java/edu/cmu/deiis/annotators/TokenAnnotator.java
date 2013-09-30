@@ -17,7 +17,6 @@ public class TokenAnnotator extends JCasAnnotator_ImplBase {
   private Pattern tokenPattern = Pattern.compile("[a-zA-Z0-9']+");
 
   public void process(JCas aJCas) {
-    System.out.println("CURRENTLY RUNNING TokenAnnotator.java");
     // get document text
     String docText = aJCas.getDocumentText();
     // search for tokens

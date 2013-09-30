@@ -18,7 +18,6 @@ import org.apache.uima.jcas.cas.FSArray;
 public class NgramAnnotator extends JCasAnnotator_ImplBase {
 
   public void process(JCas aJCas) {
-    System.out.println("CURRENTLY RUNNING NgramAnnotator.java");
     // get document text
     String docText = aJCas.getDocumentText();
 
