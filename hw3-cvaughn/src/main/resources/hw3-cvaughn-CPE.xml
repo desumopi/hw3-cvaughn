@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cpeDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <collectionReader>
+        <collectionIterator>
+            <descriptor>
+                <import location="descriptors/FileSystemCollectionReader.xml"/>
+            </descriptor>
+            <configurationParameterSettings>
+                <nameValuePair>
+                    <name>InputDirectory</name>
+                    <value>
+                        <string>/home/callie/git/hw3-cvaughn/hw3-cvaughn/src/main/resources/inputData</string>
+                    </value>
+                </nameValuePair>
+            </configurationParameterSettings>
+        </collectionIterator>
+    </collectionReader>
+    <casProcessors casPoolSize="2" processingUnitThreadCount="1">
+    <casProcessor deployment="integrated" name="Aggregate Analysis Engine">
+        <descriptor>
+            <import location="hw2-cvaughn-aae.xml"/>
+        </descriptor>
+            <deploymentParameters/>
+        <errorHandling>
+            <errorRateThreshold action="terminate" value="0/1000"/>
+            <maxConsecutiveRestarts action="terminate" value="30"/>
+            <timeout max="100000" default="-1"/>
+        </errorHandling>
+        <checkpoint batch="10000" time="1000ms"/>
+    </casProcessor>
+    <casProcessor deployment="integrated" name="Xmi Writer CAS Consumer">
+        <descriptor>
+            <import location="descriptors/XmiWriterCasConsumer.xml"/>
+        </descriptor>
+            <deploymentParameters/>
+            <filter/>
+        <errorHandling>
+            <errorRateThreshold action="terminate" value="100/1000"/>
+            <maxConsecutiveRestarts action="terminate" value="30"/>
+            <timeout max="10000"/>
+        </errorHandling>
+        <checkpoint batch="10000"/>
+        <configurationParameterSettings>
+            <nameValuePair>
+                <name>OutputDirectory</name>
+                <value>
+                    <string>/home/callie/git/hw3-cvaughn/hw3-cvaughn/target/output/..</string>
+                </value>
+            </nameValuePair>
+        </configurationParameterSettings>
+    </casProcessor>
+    </casProcessors>
+    <cpeConfig>
+        <numToProcess>-1</numToProcess>
+        <deployAs>immediate</deployAs>
+        <checkpoint batch="0" time="300000"/>
+        <timerImpl/>
+    </cpeConfig>
+</cpeDescription>
