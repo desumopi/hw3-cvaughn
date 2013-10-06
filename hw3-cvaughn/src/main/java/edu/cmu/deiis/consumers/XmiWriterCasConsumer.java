@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package org.apache.uima.examples.xmi;
+package edu.cmu.deiis.consumers;
 
 import java.io.File;
 import java.io.FileOutputStream;
