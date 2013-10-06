@@ -3,7 +3,7 @@
   <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
   <implementationName>edu.cmu.deiis.consumers.PrecisionCasConsumer</implementationName>
   <processingResourceMetaData>
-    <name>Xmi Writer CAS Consumer</name>
+    <name>Precision CAS Consumer</name>
     <description>Writes the CAS to XMI format</description>
     <version>1.0</version>
     <vendor>The Apache Software Foundation</vendor>
