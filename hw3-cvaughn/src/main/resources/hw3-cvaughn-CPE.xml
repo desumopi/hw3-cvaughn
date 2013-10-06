@@ -12,6 +12,12 @@
                         <string>/home/callie/git/hw3-cvaughn/hw3-cvaughn/src/main/resources/inputData</string>
                     </value>
                 </nameValuePair>
+                <nameValuePair>
+                    <name>Encoding</name>
+                    <value>
+                        <string>utf-8</string>
+                    </value>
+                </nameValuePair>
             </configurationParameterSettings>
         </collectionIterator>
     </collectionReader>
@@ -27,27 +33,6 @@
             <timeout max="100000" default="-1"/>
         </errorHandling>
         <checkpoint batch="10000" time="1000ms"/>
-    </casProcessor>
-    <casProcessor deployment="integrated" name="Xmi Writer CAS Consumer">
-        <descriptor>
-            <import location="descriptors/XmiWriterCasConsumer.xml"/>
-        </descriptor>
-            <deploymentParameters/>
-            <filter/>
-        <errorHandling>
-            <errorRateThreshold action="terminate" value="100/1000"/>
-            <maxConsecutiveRestarts action="terminate" value="30"/>
-            <timeout max="10000"/>
-        </errorHandling>
-        <checkpoint batch="10000"/>
-        <configurationParameterSettings>
-            <nameValuePair>
-                <name>OutputDirectory</name>
-                <value>
-                    <string>/home/callie/git/hw3-cvaughn/hw3-cvaughn/target/output/..</string>
-                </value>
-            </nameValuePair>
-        </configurationParameterSettings>
     </casProcessor>
     </casProcessors>
     <cpeConfig>
