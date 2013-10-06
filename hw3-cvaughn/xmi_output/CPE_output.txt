@@ -1,0 +1,16 @@
+
++ 1.0 "Booth shot Lincoln"
+- 0.5 "Lincoln shot Booth"
++ 0.33 "Booth assassinated Lincoln"
+- 0.33 "Lincoln assassinated Booth"
++ 0.25 "Lincoln was shot by Booth"
+- 0.25 "Booth was shot by Lincoln"
++ 0.16 "Lincoln was assassinated by Booth"
+- 0.16 "Booth was assassinated by Lincoln"
+Precision at 4: 0.5
++ 1.0 "John loves Mary"
++ 0.33 "John loves Mary with all his heart"
+- 0.22 "Mary doesn't love John"
+- 0.22 "John doesn't love Mary"
++ 0.13 "Mary is dearly loved by John"
+Precision at 3: 0.66

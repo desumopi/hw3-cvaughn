@@ -1,0 +1,7 @@
+
++ 1.0 "John loves Mary"
++ 0.33 "John loves Mary with all his heart"
+- 0.22 "Mary doesn't love John"
+- 0.22 "John doesn't love Mary"
++ 0.13 "Mary is dearly loved by John"
+Precision at 3: 0.66

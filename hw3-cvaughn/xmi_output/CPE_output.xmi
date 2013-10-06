@@ -1,0 +1,10 @@
+
++ 1.0 "Booth shot Lincoln"
+- 0.5 "Lincoln shot Booth"
++ 0.33 "Booth assassinated Lincoln"
+- 0.33 "Lincoln assassinated Booth"
++ 0.25 "Lincoln was shot by Booth"
+- 0.25 "Booth was shot by Lincoln"
++ 0.16 "Lincoln was assassinated by Booth"
+- 0.16 "Booth was assassinated by Lincoln"
+Precision at 4: 0.5

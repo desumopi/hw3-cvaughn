@@ -20,6 +20,7 @@
 package edu.cmu.deiis.consumers;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -37,6 +38,7 @@ import org.apache.uima.examples.SourceDocumentInformation;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.resource.ResourceInitializationException;
 import org.apache.uima.resource.ResourceProcessException;
+import org.apache.uima.util.ProcessTrace;
 import org.apache.uima.util.XMLSerializer;
 import org.xml.sax.SAXException;
 
@@ -59,20 +61,36 @@ public class PrecisionCasConsumer extends CasConsumer_ImplBase {
   public static final String PARAM_OUTPUTDIR = "OutputDirectory";
 
   private File mOutputDir;
-
-  private int mDocNum;
+  
+  private int inputFileCount;
+    
+  private double avgPrecision;
+  
+  private FileOutputStream out;
+  
+  private String content="";
 
   public void initialize() throws ResourceInitializationException {
-    mDocNum = 0;
     mOutputDir = new File((String) getConfigParameterValue(PARAM_OUTPUTDIR));
     if (!mOutputDir.exists()) {
       mOutputDir.mkdirs();
+    }
+    inputFileCount = 0;
+    avgPrecision = 0.0;
+    
+    // initialize file for all output
+    File outFile = new File(mOutputDir, "CPE_output.txt");
+    
+    try {
+      out = new FileOutputStream(outFile);
+    } catch (FileNotFoundException e) {
+      System.out.println("The file " + outFile.toString() + " was not found.");
     }
   }
 
   /**
    * Processes the CAS which was populated by the TextAnalysisEngines. <br>
-   * In this case, the CAS is evaluated and then written to the XMI output file .
+   * In this case, the CAS is evaluated and then written to the txt output file .
    * 
    * @param aCAS
    *          a CAS which has been populated by the TAEs
@@ -84,6 +102,7 @@ public class PrecisionCasConsumer extends CasConsumer_ImplBase {
    */
   public void processCas(CAS aCAS) throws ResourceProcessException {
     String modelFileName = null;
+    inputFileCount++;
 
     JCas aJCas;
     try {
@@ -123,11 +142,8 @@ public class PrecisionCasConsumer extends CasConsumer_ImplBase {
     
     sortArray(asArray);
 
-    ArrayList<Integer> highAnsBegins = new ArrayList<Integer>();
     String label = "!";
     int tp = 0;
-    
-    String content = "";
     
     // for the first N AnswerScores, how many are right?
     for (int x=0; x<asArray.size(); x++) {
@@ -140,28 +156,35 @@ public class PrecisionCasConsumer extends CasConsumer_ImplBase {
       } else {
         label = "-";
       }
-      content = content + "\n" + label + " " + doubleToString(asArray.get(x).getScore()) +  " \"" + docText.substring(asArray.get(x).getBegin(), asArray.get(x).getEnd()) + "\"";
+      content = content + label + " " + doubleToString(asArray.get(x).getScore()) +  " \"" + docText.substring(asArray.get(x).getBegin(), asArray.get(x).getEnd()) + "\"\n";
 //      System.out.println(label + " " + doubleToString(asArray.get(x).getScore()) + " \"" + docText.substring(asArray.get(x).getBegin(), asArray.get(x).getEnd()) + "\"");
     }
     
     double precision = ((double)tp)/(double)(N);
     
-    File outFile = new File(mOutputDir, "CPE_output.xmi");
-    FileOutputStream out = null;
+    content = content+"\nPrecision at "+N+": "+doubleToString(precision)+"\n\n\n";
+    avgPrecision += precision;
+  }
+  
+  /**
+   * Runs when all the CAS files in the collection have been processed.
+   * In this case, the evaluation of the CAS files is written to the txt output file .
+   * 
+   * @see org.apache.uima.collection.base_cpm.CasObjectProcessor#collectionProcessComplete(org.apache.uima.cas.CAS)
+   */
+  
+  public void collectionProcessComplete(ProcessTrace arg0) throws ResourceProcessException, IOException {
+    avgPrecision = avgPrecision/inputFileCount;
+    content = content + "Average precision: " + doubleToString(avgPrecision) + "\n";
     
-    content = content+"\nPrecision at "+N+": "+doubleToString(precision);
-    
+    // write the output to the txt output file:
     try {
-      // write the output to XMI:
-      out = new FileOutputStream(outFile);
       byte[] bcont = content.getBytes();
       out.write(bcont);
       out.close();
     } catch (IOException e) {
-      System.out.println("There was an IOException when writing to XMI.");
-      System.out.println("The file "+outFile.toString()+" doesn't exist");
+      System.out.println("There was an IOException when writing to the txt file.");
     }
-    
   }
 
   private String doubleToString(double doub) {

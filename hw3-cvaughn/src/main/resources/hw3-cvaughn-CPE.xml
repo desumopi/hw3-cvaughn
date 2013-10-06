@@ -35,7 +35,7 @@
         </casProcessor>
         <casProcessor deployment="integrated" name="Xmi Writer CAS Consumer">
             <descriptor>
-                <import location="descriptors/XmiWriterCasConsumer.xml"/>
+                <import location="descriptors/PrecisionCasConsumer.xml"/>
             </descriptor>
             <deploymentParameters/>
             <errorHandling>
@@ -44,6 +44,14 @@
                 <timeout max="100000" default="-1"/>
             </errorHandling>
             <checkpoint batch="10000" time="1000ms"/>
+            <configurationParameterSettings>
+                <nameValuePair>
+                    <name>OutputDirectory</name>
+                    <value>
+                        <string>/home/callie/git/hw3-cvaughn/hw3-cvaughn/target/output</string>
+                    </value>
+                </nameValuePair>
+            </configurationParameterSettings>
         </casProcessor>
     </casProcessors>
     <cpeConfig>
