@@ -25,8 +25,8 @@ public class AnswerSortAnnotator extends JCasAnnotator_ImplBase {
     Iterator questIter = questIndex.iterator();
     Question question = (Question) questIter.next();
     
-    System.out.println("");
-    System.out.println("Question: \"" + docText.substring(question.getBegin(), question.getEnd()) + "\"");
+    //System.out.println("");
+    //System.out.println("Question: \"" + docText.substring(question.getBegin(), question.getEnd()) + "\"");
         
     // get the answers from the CAS (and store in ArrayList):
     ArrayList<Answer> ansArray = new ArrayList<Answer>();
