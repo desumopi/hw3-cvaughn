@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?><cpeDescription xmlns="http://uima.apache.org/resourceSpecifier">
+<?xml version="1.0" encoding="UTF-8"?>
+<cpeDescription xmlns="http://uima.apache.org/resourceSpecifier">
     <collectionReader>
         <collectionIterator>
             <descriptor>
@@ -21,6 +22,18 @@
         </collectionIterator>
     </collectionReader>
     <casProcessors casPoolSize="2" processingUnitThreadCount="1">
+        <casProcessor deployment="integrated" name="scnlp-cvaughn-client.xml">
+            <descriptor>
+                <import location="scnlp-cvaughn-client.xml"/>
+            </descriptor>
+            <deploymentParameters/>
+            <errorHandling>
+                <errorRateThreshold action="terminate" value="0/1000"/>
+                <maxConsecutiveRestarts action="terminate" value="30"/>
+                <timeout max="100000" default="-1"/>
+            </errorHandling>
+            <checkpoint batch="10000" time="1000ms"/>
+        </casProcessor>
         <casProcessor deployment="integrated" name="Aggregate Analysis Engine">
             <descriptor>
                 <import location="hw2-cvaughn-aae.xml"/>
@@ -48,7 +61,7 @@
                 <nameValuePair>
                     <name>OutputDirectory</name>
                     <value>
-                        <string>/home/callie/git/hw3-cvaughn/hw3-cvaughn/target/output</string>
+                        <string>/home/callie/git/hw3-cvaughn/hw3-cvaughn/target/output/hw3output</string>
                     </value>
                 </nameValuePair>
             </configurationParameterSettings>
@@ -68,7 +81,7 @@
                 <nameValuePair>
                     <name>OutputDirectory</name>
                     <value>
-                        <string>/home/callie/git/hw3-cvaughn/hw3-cvaughn/target/output</string>
+                        <string>/home/callie/git/hw3-cvaughn/hw3-cvaughn/target/output/hw3output</string>
                     </value>
                 </nameValuePair>
             </configurationParameterSettings>

@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package org.apache.uima.examples.cpe;
+package edu.cmu.deiis.collectionReaders;
 
 import java.io.File;
 import java.io.IOException;

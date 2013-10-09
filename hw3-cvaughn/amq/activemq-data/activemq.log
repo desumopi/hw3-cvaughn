@@ -1,0 +1,20 @@
+2013-10-09 02:28:54,131 [main           ] INFO  BrokerService                  - Using Persistence Adapter: MemoryPersistenceAdapter
+2013-10-09 02:28:54,134 [main           ] INFO  BrokerService                  - ActiveMQ 5.4.1 JMS Message Broker (localhost) is starting
+2013-10-09 02:28:54,134 [main           ] INFO  BrokerService                  - For help or more information please see: http://activemq.apache.org/
+2013-10-09 02:28:54,189 [JMX connector  ] INFO  ManagementContext              - JMX consoles can connect to service:jmx:rmi:///jndi/rmi://localhost:1099/jmxrmi
+2013-10-09 02:28:54,326 [main           ] INFO  TransportServerThreadSupport   - Listening for connections at: tcp://mashariki:61616
+2013-10-09 02:28:54,327 [main           ] INFO  TransportConnector             - Connector openwire Started
+2013-10-09 02:28:54,330 [main           ] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:mashariki-47779-1381300134157-0:0) started
+2013-10-09 02:36:50,605 [MQ ShutdownHook] INFO  BrokerService                  - ActiveMQ Message Broker (localhost, ID:mashariki-47779-1381300134157-0:0) is shutting down
+2013-10-09 02:36:50,608 [Thread-2       ] INFO  BrokerService                  - ActiveMQ Message Broker (localhost, ID:mashariki-47779-1381300134157-0:0) is shutting down
+2013-10-09 02:36:50,608 [Thread-2       ] INFO  TransportConnector             - Connector openwire Stopped
+2013-10-09 02:36:50,634 [Thread-2       ] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:mashariki-47779-1381300134157-0:0) stopped
+2013-10-09 02:36:50,803 [MQ ShutdownHook] INFO  TransportConnector             - Connector openwire Stopped
+2013-10-09 02:36:50,804 [MQ ShutdownHook] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:mashariki-47779-1381300134157-0:0) stopped
+2013-10-09 18:56:01,674 [main           ] INFO  BrokerService                  - Using Persistence Adapter: MemoryPersistenceAdapter
+2013-10-09 18:56:01,697 [main           ] INFO  BrokerService                  - ActiveMQ 5.4.1 JMS Message Broker (localhost) is starting
+2013-10-09 18:56:01,697 [main           ] INFO  BrokerService                  - For help or more information please see: http://activemq.apache.org/
+2013-10-09 18:56:01,752 [JMX connector  ] INFO  ManagementContext              - JMX consoles can connect to service:jmx:rmi:///jndi/rmi://localhost:1099/jmxrmi
+2013-10-09 18:56:01,895 [main           ] INFO  TransportServerThreadSupport   - Listening for connections at: tcp://mashariki:61616
+2013-10-09 18:56:01,895 [main           ] INFO  TransportConnector             - Connector openwire Started
+2013-10-09 18:56:01,898 [main           ] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:mashariki-59457-1381359361721-0:0) started
