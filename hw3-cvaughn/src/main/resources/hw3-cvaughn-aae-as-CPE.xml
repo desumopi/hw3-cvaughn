@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cpeDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <collectionReader>
+        <collectionIterator>
+            <descriptor>
+                <import location="descriptors/FileSystemCollectionReader.xml"/>
+            </descriptor>
+            <configurationParameterSettings>
+                <nameValuePair>
+                    <name>InputDirectory</name>
+                    <value>
+                        <string>/home/callie/git/hw3-cvaughn/hw3-cvaughn/src/main/resources/inputData</string>
+                    </value>
+                </nameValuePair>
+                <nameValuePair>
+                    <name>Encoding</name>
+                    <value>
+                        <string>utf-8</string>
+                    </value>
+                </nameValuePair>
+            </configurationParameterSettings>
+        </collectionIterator>
+    </collectionReader>
+    <casProcessors casPoolSize="2" processingUnitThreadCount="1">
+        <casProcessor deployment="integrated" name="scnlp-cvaughn-client.xml">
+            <descriptor>
+                <import location="scnlp-cvaughn-client.xml"/>
+            </descriptor>
+            <deploymentParameters/>
+            <errorHandling>
+                <errorRateThreshold action="terminate" value="0/1000"/>
+                <maxConsecutiveRestarts action="terminate" value="30"/>
+                <timeout max="100000" default="-1"/>
+            </errorHandling>
+            <checkpoint batch="10000" time="1000ms"/>
+        </casProcessor>
+        <casProcessor deployment="integrated" name="hw2-cvaughn-aae-client.xml">
+            <descriptor>
+                <import location="hw2-cvaughn-aae-client.xml"/>
+            </descriptor>
+            <deploymentParameters/>
+            <errorHandling>
+                <errorRateThreshold action="terminate" value="0/1000"/>
+                <maxConsecutiveRestarts action="terminate" value="30"/>
+                <timeout max="100000" default="-1"/>
+            </errorHandling>
+            <checkpoint batch="10000" time="1000ms"/>
+        </casProcessor>
+        <casProcessor deployment="integrated" name="Precision CAS Consumer">
+            <descriptor>
+                <import location="descriptors/PrecisionCasConsumer.xml"/>
+            </descriptor>
+            <deploymentParameters/>
+            <errorHandling>
+                <errorRateThreshold action="terminate" value="0/1000"/>
+                <maxConsecutiveRestarts action="terminate" value="30"/>
+                <timeout max="100000" default="-1"/>
+            </errorHandling>
+            <checkpoint batch="10000" time="1000ms"/>
+            <configurationParameterSettings>
+                <nameValuePair>
+                    <name>OutputDirectory</name>
+                    <value>
+                        <string>/home/callie/git/hw3-cvaughn/hw3-cvaughn/target/output/hw3task23</string>
+                    </value>
+                </nameValuePair>
+            </configurationParameterSettings>
+        </casProcessor>
+        <casProcessor deployment="integrated" name="Xmi Writer CAS Consumer">
+            <descriptor>
+                <import location="descriptors/XmiWriterCasConsumer.xml"/>
+            </descriptor>
+            <deploymentParameters/>
+            <errorHandling>
+                <errorRateThreshold action="terminate" value="0/1000"/>
+                <maxConsecutiveRestarts action="terminate" value="30"/>
+                <timeout max="100000" default="-1"/>
+            </errorHandling>
+            <checkpoint batch="10000" time="1000ms"/>
+            <configurationParameterSettings>
+                <nameValuePair>
+                    <name>OutputDirectory</name>
+                    <value>
+                        <string>/home/callie/git/hw3-cvaughn/hw3-cvaughn/target/output/hw3task23</string>
+                    </value>
+                </nameValuePair>
+            </configurationParameterSettings>
+        </casProcessor>
+    </casProcessors>
+    <cpeConfig>
+        <numToProcess>-1</numToProcess>
+        <deployAs>immediate</deployAs>
+        <checkpoint batch="0" time="300000"/>
+        <timerImpl/>
+    </cpeConfig>
+</cpeDescription>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><analysisEngineDeploymentDescription xmlns="http://uima.apache.org/resourceSpecifier">
+  <name>hw2-cvaughn-aae deploy</name>
+  <description>Deploys cvaughn's hw2 Aggregate Analysis Engine with all its delegates in the same JVM.</description>
+  <version/>
+  <vendor/>
+  <deployment protocol="jms" provider="activemq">
+    <casPool numberOfCASes="1" initialFsHeapSize="2000000"/>
+    <service>
+      <inputQueue endpoint="Homework2AaeQueue" brokerURL="tcp://mashariki:61616" prefetch="0"/>
+      <topDescriptor>
+<import location="../resources/hw2-cvaughn-aae.xml"/>
+      </topDescriptor>
+      <analysisEngine async="false">
+        <scaleout numberOfInstances="1"/>
+        <asyncPrimitiveErrorConfiguration>
+          <processCasErrors thresholdCount="0" thresholdWindow="0" thresholdAction="terminate"/>
+          <collectionProcessCompleteErrors timeout="0" additionalErrorAction="terminate"/>
+        </asyncPrimitiveErrorConfiguration>
+      </analysisEngine>
+    </service>
+  </deployment>
+</analysisEngineDeploymentDescription>
