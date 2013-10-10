@@ -18,3 +18,9 @@
 2013-10-09 18:56:01,895 [main           ] INFO  TransportServerThreadSupport   - Listening for connections at: tcp://mashariki:61616
 2013-10-09 18:56:01,895 [main           ] INFO  TransportConnector             - Connector openwire Started
 2013-10-09 18:56:01,898 [main           ] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:mashariki-59457-1381359361721-0:0) started
+2013-10-09 20:52:38,139 [MQ ShutdownHook] INFO  BrokerService                  - ActiveMQ Message Broker (localhost, ID:mashariki-59457-1381359361721-0:0) is shutting down
+2013-10-09 20:52:38,139 [Thread-2       ] INFO  BrokerService                  - ActiveMQ Message Broker (localhost, ID:mashariki-59457-1381359361721-0:0) is shutting down
+2013-10-09 20:52:38,144 [MQ ShutdownHook] INFO  TransportConnector             - Connector openwire Stopped
+2013-10-09 20:52:38,182 [MQ ShutdownHook] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:mashariki-59457-1381359361721-0:0) stopped
+2013-10-09 20:52:39,166 [Thread-2       ] INFO  TransportConnector             - Connector openwire Stopped
+2013-10-09 20:52:39,167 [Thread-2       ] INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:mashariki-59457-1381359361721-0:0) stopped

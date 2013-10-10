@@ -61,7 +61,7 @@
                 <nameValuePair>
                     <name>OutputDirectory</name>
                     <value>
-                        <string>/home/callie/git/hw3-cvaughn/hw3-cvaughn/target/output/hw3output</string>
+                        <string>/home/callie/git/hw3-cvaughn/hw3-cvaughn/target/output/hw3test</string>
                     </value>
                 </nameValuePair>
             </configurationParameterSettings>
@@ -81,7 +81,7 @@
                 <nameValuePair>
                     <name>OutputDirectory</name>
                     <value>
-                        <string>/home/callie/git/hw3-cvaughn/hw3-cvaughn/target/output/hw3output</string>
+                        <string>/home/callie/git/hw3-cvaughn/hw3-cvaughn/target/output/hw3test</string>
                     </value>
                 </nameValuePair>
             </configurationParameterSettings>

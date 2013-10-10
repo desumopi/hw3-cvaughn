@@ -40,10 +40,12 @@ import org.apache.uima.resource.ResourceInitializationException;
 import org.apache.uima.resource.ResourceProcessException;
 import org.apache.uima.util.ProcessTrace;
 import org.apache.uima.util.XMLSerializer;
+import org.cleartk.ne.type.NamedEntityMention;
 import org.xml.sax.SAXException;
 
 import edu.cmu.deiis.types.Answer;
 import edu.cmu.deiis.types.AnswerScore;
+import edu.cmu.deiis.types.Question;
 
 /**
  * A simple CAS consumer that writes the CAS to XMI format.
@@ -128,7 +130,12 @@ public class PrecisionCasConsumer extends CasConsumer_ImplBase {
         N++;
       }
     }
-
+    
+    //get the Question from the CAS:
+    FSIndex qIndex = aJCas.getAnnotationIndex(Question.type);
+    Iterator aIter = qIndex.iterator();
+    Question question = (Question) aIter.next();
+    
     // get an ArrayList of all the AnswerScores from the CAS
     ArrayList<AnswerScore> asArray = new ArrayList<AnswerScore>();
     
@@ -139,6 +146,49 @@ public class PrecisionCasConsumer extends CasConsumer_ImplBase {
       AnswerScore currAS = (AnswerScore) asIter.next();
       asArray.add(currAS);
     }
+    
+    // get an ArrayList of all the NamedEntityMentions from the CAS
+    ArrayList<String> nemQArray = new ArrayList<String>();
+    ArrayList<NamedEntityMention> nemArray = new ArrayList<NamedEntityMention>();
+    FSIndex nemIndex = aJCas.getAnnotationIndex(NamedEntityMention.type);
+    Iterator nemIter = nemIndex.iterator();
+    
+    while (nemIter.hasNext()) {
+      NamedEntityMention currNEM = (NamedEntityMention) nemIter.next();
+      if (currNEM.getBegin() >= question.getBegin() && currNEM.getEnd() <= question.getEnd()) {
+        nemQArray.add(docText.substring(currNEM.getBegin(), currNEM.getEnd()));
+      } else {
+        nemArray.add(currNEM);
+      }
+    }
+    
+    
+    for (int i=0; i<asArray.size(); i++) {
+      AnswerScore anscore = asArray.get(i);
+      int b = anscore.getBegin();
+      int e = anscore.getEnd();
+      
+      double numNEMs = 0.0;
+      double totNEMs = 0.0;
+      
+      for (int j=0; j<nemArray.size(); j++) {
+        NamedEntityMention nemcur = nemArray.get(i);
+        if (nemcur.getBegin()>=b && nemcur.getEnd()<=e) {
+          totNEMs += 1;
+          for (int k=0; k<nemQArray.size(); k++) {
+            if ( docText.substring(nemcur.getBegin(), nemcur.getEnd()).equals(nemQArray.get(k)) ) {
+              numNEMs += 1;
+            }
+          }
+        }
+      }
+      
+      double nemScore = numNEMs/totNEMs;
+      System.out.println("Answer score = .75 * " + anscore.getScore() + " + .25 * " + nemScore + " = " + (.75*anscore.getScore())+(.25*nemScore));
+      anscore.setScore((.75*anscore.getScore())+(.25*nemScore));
+      asArray.set(i, anscore);
+    }
+    
     
     sortArray(asArray);
 
@@ -157,7 +207,6 @@ public class PrecisionCasConsumer extends CasConsumer_ImplBase {
         label = "-";
       }
       content = content + label + " " + doubleToString(asArray.get(x).getScore()) +  " \"" + docText.substring(asArray.get(x).getBegin(), asArray.get(x).getEnd()) + "\"\n";
-//      System.out.println(label + " " + doubleToString(asArray.get(x).getScore()) + " \"" + docText.substring(asArray.get(x).getBegin(), asArray.get(x).getEnd()) + "\"");
     }
     
     double precision = ((double)tp)/(double)(N);
