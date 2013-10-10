@@ -85,4 +85,8 @@
 			<version>2.4.0</version>
 		</dependency>
 	</dependencies>
+	<scm>
+		<connection>scm:git:git:@github.com:desumopi/hw3-cvaughn.git</connection>
+		<developerConnection>scm:git:git:@github.com:desumopi/hw3-cvaughn.git</developerConnection>
+	</scm>
 </project>
